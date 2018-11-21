@@ -8,7 +8,7 @@ import json
 import datetime
 import pickle
 
-env = gym.make('Pong-v4')  # if len(sys.argv)<2 else sys.argv[1]
+env = gym.make('Pong-v0')  # if len(sys.argv)<2 else sys.argv[1]
 
 timestamp = datetime.datetime.now().strftime('%m_%d_%H%M')
 
@@ -63,8 +63,8 @@ def rollout(env):
     total_timesteps = 0
     start = time.time()
     indexes = 0
-    frames = np.zeros((1000, 210, 160, 3), dtype=np.uint8)
-    time_stamps = np.zeros([1000, 1], dtype=np.float64)
+    frames = np.zeros((10000, 210, 160, 3), dtype=np.uint8)
+    time_stamps = np.zeros([10000, 1], dtype=np.float64)
     while (time.time()-start) < TIME_LIMIT:
         if not skip:
             a = human_agent_action
@@ -78,11 +78,11 @@ def rollout(env):
         # insert timestamp in array
         frames[indexes] = obser
         time_stamps[indexes] = time.time()
-        print(time_stamps)
+
         indexes = indexes + 1
 
-        if r != 0:
-            print("reward %0.3f" % r)
+        #if r != 0:
+        #    print("reward %0.3f" % r)
         total_reward += r
         window_still_open = env.render()
         if window_still_open == False:
@@ -93,8 +93,8 @@ def rollout(env):
             break
         while human_sets_pause:
             env.render()
-            time.sleep(0.033)
-        time.sleep(0.033)
+            time.sleep(0.05)
+        time.sleep(0.05)
 
     env.close()
 
