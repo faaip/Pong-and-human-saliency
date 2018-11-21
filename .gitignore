@@ -4,4 +4,4 @@
 *.tar
 *.tsv
 .vscode/*
-
+*.DS_Store
