@@ -1,0 +1,7 @@
+# Ignore all the data
+*.mp4
+*.pickle
+*.tar
+*.tsv
+
+
