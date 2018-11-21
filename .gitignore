@@ -3,5 +3,5 @@
 *.pickle
 *.tar
 *.tsv
-
+.vscode/*
 
