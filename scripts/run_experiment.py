@@ -7,6 +7,14 @@ import time
 import json
 import datetime
 import pickle
+import argparse
+
+parser = argparse.ArgumentParser(description = None)
+parser.add_argument('-t','--time', default = 60, type = int, help = 'How long should they play')
+
+args = parser.parse_args()
+
+
 
 env = gym.make('Pong-v0')  # if len(sys.argv)<2 else sys.argv[1]
 
@@ -17,7 +25,7 @@ if not hasattr(env.action_space, 'n'):
 ACTIONS = env.action_space.n
 SKIP_CONTROL = 0    # Use previous control decision SKIP_CONTROL times, that's how you
 # can test what skip is still usable.
-TIME_LIMIT = 60  # in seconds
+TIME_LIMIT = args.time  # in seconds
 human_agent_action = 0
 human_wants_restart = False
 human_sets_pause = False
