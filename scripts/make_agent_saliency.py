@@ -41,12 +41,15 @@ def make_agent_movie(env_name, checkpoint='*.tar', num_frames=20, first_frame=0,
     # make the movie!
     start = time.time()
     FFMpegWriter = manimation.writers['ffmpeg']
-    metadata = dict(title=movie_title, artist='greydanus', comment='Saliency in the Arcade')
-    writer = FFMpegWriter(fps=8, metadata=metadata)
+    metadata = dict(title=movie_title, pad_inches = 0,artist='greydanus', comment='Saliency in the Arcade')
+    writer = FFMpegWriter(fps=18, metadata=metadata)
     
     prog = '' ; total_frames = len(history['ins'])
     f = plt.figure(figsize=[6, 6*1.3], dpi=resolution)
+    plt.axis('off')
+
     ax = f.add_subplot(1,1,1)
+    f.subplots_adjust(left=0, bottom=0, right=1, top=1, wspace=None, hspace=None)
     l1 = ax.imshow(np.zeros((210,160,3)))
     ax.set_title(env_name, fontsize =15)
 
@@ -55,11 +58,11 @@ def make_agent_movie(env_name, checkpoint='*.tar', num_frames=20, first_frame=0,
             ix = first_frame+i
             if ix < total_frames: # prevent loop from trying to process a frame ix greater than rollout length
                 frame = history['ins'][ix].squeeze().copy()
-                actor_saliency = score_frame(model, history, ix, radius, density, interp_func=occlude, mode='actor')
-                critic_saliency = score_frame(model, history, ix, radius, density, interp_func=occlude, mode='critic')
+                #actor_saliency = score_frame(model, history, ix, radius, density, interp_func=occlude, mode='actor')
+                #critic_saliency = score_frame(model, history, ix, radius, density, interp_func=occlude, mode='critic')
             
-                frame = saliency_on_atari_frame(actor_saliency, frame, fudge_factor=meta['actor_ff'], channel=2)
-                frame = saliency_on_atari_frame(critic_saliency, frame, fudge_factor=meta['critic_ff'], channel=0)
+                #frame = saliency_on_atari_frame(actor_saliency, frame, fudge_factor=meta['actor_ff'], channel=2)
+                #frame = saliency_on_atari_frame(critic_saliency, frame, fudge_factor=meta['critic_ff'], channel=0)
 
                 l1.set_data(frame)
                 writer.grab_frame()
