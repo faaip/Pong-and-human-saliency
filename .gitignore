@@ -1,5 +1,6 @@
 # Ignore all the data
 *.mp4
+!experiment_movies/just*.mp4
 *.pickle
 *.tar
 *.tsv
