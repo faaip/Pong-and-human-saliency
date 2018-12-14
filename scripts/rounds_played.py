@@ -25,9 +25,8 @@ density = 5
 
 all_participants = sorted(glob.glob(os.path.join(args.part_dir, '*')))
 
-for part in all_participants[-1]:
+for part in all_participants:
   part_files = glob.glob(os.path.join(part,'*'))
-
   # Get the tobi file / pickle files
   pickle_files = []
   for i in part_files:
