@@ -6,7 +6,7 @@ import matplotlib.patches as patches
 import matplotlib.pyplot as plt
 
 # %%
-file = open("data/Participant_1/Play_round_0.pickle", 'rb')
+file = open("/Users/au550101/Dropbox (Personal)/Cognitive_science_3/Participant_data/Participant_5/Play_round_0.pickle", 'rb')
 object_file = pickle.load(file)
 file.close()
 frames, fixation_human, agent_saliency = object_file
@@ -102,12 +102,12 @@ def get_dynamic_aoi(human_fixation_frame, frame):
     for aoi in aois:
         p = np.where(frame[34:194, :] == aoi[1])
         p = np.mean(p, axis=1)[:2]
-        dist = numpy.linalg.norm(p-fix_point)
+        dist = np.linalg.norm(p-fix_point)
 
-        if dist < 25:  # TODO: set meaningful threshold
+        if dist < 35:  # TODO: set meaningful threshold
             return aoi[0]
 
-    return 3 # None
+    return 3  # None
 
 
 # static
@@ -120,7 +120,7 @@ make_beauty_plot(fixation_human, frames)
 # dynamic
 aois = np.array([get_dynamic_aoi(fixation_human[i], frames[i])
                  for i in range(fixation_human.shape[0])])
-make_the_pie_plot(aois, False);
+make_the_pie_plot(aois, False)
 
 
-# %%
+#%%
