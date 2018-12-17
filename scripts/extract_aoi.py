@@ -1,18 +1,15 @@
 # %%
 import pickle
+import os
 import numpy as np
 import time
+import pandas as pd
 import matplotlib.patches as patches
 import matplotlib.pyplot as plt
 
 # %%
-file = open("/Users/au550101/Dropbox (Personal)/Cognitive_science_3/Participant_data/Participant_5/Play_round_0.pickle", 'rb')
-object_file = pickle.load(file)
-file.close()
-frames, fixation_human, agent_saliency = object_file
 
 
-# %%
 def get_static_aoi(human_fixation_frame):
     """ 
     input: frame containing human fixation
@@ -104,23 +101,79 @@ def get_dynamic_aoi(human_fixation_frame, frame):
         p = np.mean(p, axis=1)[:2]
         dist = np.linalg.norm(p-fix_point)
 
-        if dist < 35:  # TODO: set meaningful threshold
+        if dist < 30:  # TODO: set meaningful threshold
             return aoi[0]
 
     return 3  # None
 
 
-# static
 # %%
-static_aois = np.array([get_static_aoi(fixation_human[i])
-                        for i in range(fixation_human.shape[0])])
-make_the_pie_plot(static_aois, True)
-make_beauty_plot(fixation_human, frames)
+def get_aoi_row(file_path):
+    row = {}
 
-# dynamic
-aois = np.array([get_dynamic_aoi(fixation_human[i], frames[i])
-                 for i in range(fixation_human.shape[0])])
-make_the_pie_plot(aois, False)
+    try:
+        row['participant_no'] = int(file_path.split('_')[-1])
+    except ValueError:
+        return None
+
+    # get static aois
+    for subdir, dirs, files in os.walk(file_path):
+        for file in files:
+            if 'Play' in file or 'Watch' in file:
+                # set variables
+                round_type = file.split('_')[0]
+                file_name = os.path.splitext(file)[0]
+                round_no = file_name.split('_')[-1]
+
+                # open file
+                file = open(file_path + '/' + file, 'rb')
+                object_file = pickle.load(file)
+                file.close()
+                frames, fixation_human, agent_saliency = object_file
+
+                # extract static
+                static_aois = np.array([get_static_aoi(fixation_human[i])
+                                        for i in range(fixation_human.shape[0])])
+                unique, counts = np.unique(static_aois, return_counts=True)
+
+                for idx, value in enumerate(counts):
+                    # row['Play_' + round_no + '_' + str(unique[idx])] = value
+                    row[round_type + '_' +
+                        round_no + '_static_' +
+                        str(unique[idx])] = value
+
+                # extract dynamic
+                aois = np.array([get_dynamic_aoi(fixation_human[i], frames[i])
+                                 for i in range(fixation_human.shape[0])])
+                unique, counts = np.unique(aois, return_counts=True)
+
+                for idx, value in enumerate(counts):
+                    # row['Play_' + round_no + '_' + str(unique[idx])] = value
+                    row[round_type + '_' +
+                        round_no + '_dynamic_' +
+                        str(unique[idx])] = value
+
+        print('Row #{:} for participant #{:} done!'.format(
+            round_no, row['participant_no']))
+    return row
 
 
-#%%
+rows = []
+
+# start iterating
+for subdir, dirs, files in os.walk(rootdir):
+    row = get_aoi_row(subdir)
+    if row is not None:
+        rows.append(row)
+
+df = pd.DataFrame(rows)
+df = df.set_index('participant_no')
+df
+
+
+# %%
+
+df.to_csv('freds_data.csv', sep=',')
+
+
+# %%
