@@ -8,6 +8,7 @@ import matplotlib.patches as patches
 import matplotlib.pyplot as plt
 
 # %%
+rootdir = '/Users/au550101/Dropbox (Personal)/Cognitive_science_3/Participant_data'
 
 
 def get_static_aoi(human_fixation_frame):
@@ -120,6 +121,7 @@ def get_aoi_row(file_path):
     for subdir, dirs, files in os.walk(file_path):
         for file in files:
             if 'Play' in file or 'Watch' in file:
+                print(file_path + '/' + file)
                 # set variables
                 round_type = file.split('_')[0]
                 file_name = os.path.splitext(file)[0]
@@ -158,22 +160,82 @@ def get_aoi_row(file_path):
     return row
 
 
-rows = []
+# %%
+def get_aoi_row(file_path):
+    row = {}
+    try:
+        row['participant_no'] = int(file_path.split('_')[-1])
+    except ValueError:
+        return None
 
+    # values for calculating totals
+    vals = {}
+
+    # Iterate through rounds
+    for subdir, dirs, files in os.walk(file_path):
+        for file in files:
+            if ('Play' in file or 'Watch' in file) is False:
+                continue
+
+            # Info on round
+            round_type = file.split('_')[0]
+
+            # Load them pickles
+            file = open(file_path + '/' + file, 'rb')
+            object_file = pickle.load(file)
+            file.close()
+            frames, fixation_human, agent_saliency = object_file
+
+            # Calculate static aois
+            static_aois = np.array([get_static_aoi(fixation_human[i])
+                                    for i in range(fixation_human.shape[0])])
+            static_unique, static_counts = np.unique(
+                static_aois, return_counts=True)
+
+            # Calculate dynamic aois
+            dynamic_aois = np.array([get_dynamic_aoi(fixation_human[i], frames[i])
+                                for i in range(fixation_human.shape[0])])
+            dynamic_unique, dynamic_counts = np.unique(dynamic_aois, return_counts=True)
+            dynamic_percentages = np.asarray(dynamic_counts/np.sum(dynamic_counts)*100).T
+
+            # Insert totalt values for later calculation
+            try:
+                vals[round_type + '_static_counts'] + static_counts
+            except KeyError:
+                vals[round_type + '_static_counts'] = static_counts
+            except ValueError:
+                pass
+
+            try:
+                vals[round_type + '_dynamic_counts'] + dynamic_counts
+            except KeyError:
+                vals[round_type + '_dynamic_counts'] = dynamic_counts
+
+    # insert to row
+    row['Watch_total_time_fixation_static'] = 100-np.asarray(
+        vals['Watch_static_counts']/np.sum(vals['Watch_static_counts'])*100).T[-1]
+
+    row['Watch_total_time_fixation_dynamic'] = 100-np.asarray(
+        vals['Watch_dynamic_counts']/np.sum(vals['Watch_dynamic_counts'])*100).T[-1]
+
+    row['Play_total_time_fixation_static'] = 100-np.asarray(
+        vals['Play_static_counts']/np.sum(vals['Play_static_counts'])*100).T[-1]
+
+    row['Play_total_time_fixation_dynamic'] = 100-np.asarray(
+        vals['Play_dynamic_counts']/np.sum(vals['Play_dynamic_counts'])*100).T[-1]
+
+    return row
+
+
+rows = []
 # start iterating
 for subdir, dirs, files in os.walk(rootdir):
     row = get_aoi_row(subdir)
     if row is not None:
         rows.append(row)
+        break
 
-df = pd.DataFrame(rows)
-df = df.set_index('participant_no')
-df
-
-
-# %%
-
-df.to_csv('freds_data.csv', sep=',')
+print(rows)
 
 
 # %%
