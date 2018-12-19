@@ -111,58 +111,6 @@ def get_dynamic_aoi(human_fixation_frame, frame):
 # %%
 def get_aoi_row(file_path):
     row = {}
-
-    try:
-        row['participant_no'] = int(file_path.split('_')[-1])
-    except ValueError:
-        return None
-
-    # get static aois
-    for subdir, dirs, files in os.walk(file_path):
-        for file in files:
-            if 'Play' in file or 'Watch' in file:
-                print(file_path + '/' + file)
-                # set variables
-                round_type = file.split('_')[0]
-                file_name = os.path.splitext(file)[0]
-                round_no = file_name.split('_')[-1]
-
-                # open file
-                file = open(file_path + '/' + file, 'rb')
-                object_file = pickle.load(file)
-                file.close()
-                frames, fixation_human, agent_saliency = object_file
-
-                # extract static
-                static_aois = np.array([get_static_aoi(fixation_human[i])
-                                        for i in range(fixation_human.shape[0])])
-                unique, counts = np.unique(static_aois, return_counts=True)
-
-                for idx, value in enumerate(counts):
-                    # row['Play_' + round_no + '_' + str(unique[idx])] = value
-                    row[round_type + '_' +
-                        round_no + '_static_' +
-                        str(unique[idx])] = value
-
-                # extract dynamic
-                aois = np.array([get_dynamic_aoi(fixation_human[i], frames[i])
-                                 for i in range(fixation_human.shape[0])])
-                unique, counts = np.unique(aois, return_counts=True)
-
-                for idx, value in enumerate(counts):
-                    # row['Play_' + round_no + '_' + str(unique[idx])] = value
-                    row[round_type + '_' +
-                        round_no + '_dynamic_' +
-                        str(unique[idx])] = value
-
-        print('Row #{:} for participant #{:} done!'.format(
-            round_no, row['participant_no']))
-    return row
-
-
-# %%
-def get_aoi_row(file_path):
-    row = {}
     try:
         row['participant_no'] = int(file_path.split('_')[-1])
     except ValueError:
@@ -194,35 +142,46 @@ def get_aoi_row(file_path):
 
             # Calculate dynamic aois
             dynamic_aois = np.array([get_dynamic_aoi(fixation_human[i], frames[i])
-                                for i in range(fixation_human.shape[0])])
-            dynamic_unique, dynamic_counts = np.unique(dynamic_aois, return_counts=True)
-            dynamic_percentages = np.asarray(dynamic_counts/np.sum(dynamic_counts)*100).T
+                                     for i in range(fixation_human.shape[0])])
+            dynamic_unique, dynamic_counts = np.unique(
+                dynamic_aois, return_counts=True)
+            dynamic_percentages = np.asarray(
+                dynamic_counts/np.sum(dynamic_counts)*100).T
 
             # Insert totalt values for later calculation
             try:
                 vals[round_type + '_static_counts'] + static_counts
+                vals[round_type + '_dynamic_counts'] + dynamic_counts
             except KeyError:
                 vals[round_type + '_static_counts'] = static_counts
+                vals[round_type + '_dynamic_counts'] = dynamic_counts
             except ValueError:
                 pass
 
-            try:
-                vals[round_type + '_dynamic_counts'] + dynamic_counts
-            except KeyError:
-                vals[round_type + '_dynamic_counts'] = dynamic_counts
+    watch_static_percentages = np.asarray(
+        vals['Watch_static_counts']/np.sum(vals['Watch_static_counts'])*100).T
+    play_static_percentages = np.asarray(
+        vals['Play_static_counts']/np.sum(vals['Play_static_counts'])*100).T
 
-    # insert to row
-    row['Watch_total_time_fixation_static'] = 100-np.asarray(
-        vals['Watch_static_counts']/np.sum(vals['Watch_static_counts'])*100).T[-1]
+    watch_dynamic_percentages = np.asarray(
+        vals['Watch_dynamic_counts']/np.sum(vals['Watch_dynamic_counts'])*100).T
+    play_dynamic_percentages = np.asarray(
+        vals['Play_dynamic_counts']/np.sum(vals['Play_dynamic_counts'])*100).T
 
-    row['Watch_total_time_fixation_dynamic'] = 100-np.asarray(
-        vals['Watch_dynamic_counts']/np.sum(vals['Watch_dynamic_counts'])*100).T[-1]
+    # static separate percentages
+    for idx, label in enumerate(['score board', 'opponent', 'central', 'player']):
+        row['Watch_' + label + '_static'] = watch_static_percentages[idx]
+        row['Play_' + label + '_static'] = play_static_percentages[idx]
 
-    row['Play_total_time_fixation_static'] = 100-np.asarray(
-        vals['Play_static_counts']/np.sum(vals['Play_static_counts'])*100).T[-1]
+    for idx, label in enumerate(['ball', 'opponent', 'player']):
+        row['Watch_' + label + '_dynamic'] = watch_dynamic_percentages[idx]
+        row['Play_' + label + '_dynamic'] = play_dynamic_percentages[idx]
 
-    row['Play_total_time_fixation_dynamic'] = 100-np.asarray(
-        vals['Play_dynamic_counts']/np.sum(vals['Play_dynamic_counts'])*100).T[-1]
+    row['Watch_total_time_fixation_static'] = 100-watch_static_percentages[-1]
+    row['Play_total_time_fixation_static'] = 100-play_static_percentages[-1]
+    row['Watch_total_time_fixation_dynamic'] = 100 - \
+        watch_dynamic_percentages[-1]
+    row['Play_total_time_fixation_dynamic'] = 100-play_dynamic_percentages[-1]
 
     return row
 
@@ -233,9 +192,15 @@ for subdir, dirs, files in os.walk(rootdir):
     row = get_aoi_row(subdir)
     if row is not None:
         rows.append(row)
-        break
 
-print(rows)
+
+# %%
+df = pd.DataFrame.from_dict(rows)
+df = df.set_index('participant_no')
+df
+
+# %%
+df.to_csv(data.csv, sep='\t')
 
 
 # %%
