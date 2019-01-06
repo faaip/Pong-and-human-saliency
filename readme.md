@@ -6,11 +6,8 @@ This repository contains all code used to perform and analyze the eye-tracking/R
 
 Content of repository:
 - Data
-  - data of intermediate steps for agent and human experiment (model_agent, movies)
-  - eye-tracking data of humans (tobi)
-  - saliency data of agent (saliency_agent)
+  - This directory contains the structure of the data folder. The original data is not included because of the size.
 - Scripts
   - all scripts used for performing agent experiment, (pre-)processing data from agent and eye-tracking data, and analysis of dataset
-  - (folder: exp_func) scripts provided by Greydanus et al. (https://github.com/greydanus/visualize_atari/)
+  - (folder: exp_func) scripts provided by Greydanus et al. (https://github.com/greydanus/visualize_atari/), with some minor alteration to suit our specific experiment. 
 
-An elaborate description of the experiment and results can be found in the project report.
