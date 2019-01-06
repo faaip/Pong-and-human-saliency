@@ -1,0 +1,112 @@
+
+time 00h 05m 00s, episodes 19, frames 0.028M, mean epr -19.00
+time 00h 10m 00s, episodes 40, frames 0.058M, mean epr -19.47
+time 00h 15m 00s, episodes 62, frames 0.089M, mean epr -19.66
+time 00h 20m 00s, episodes 82, frames 0.120M, mean epr -18.96
+time 00h 25m 00s, episodes 103, frames 0.150M, mean epr -19.88
+time 00h 30m 00s, episodes 124, frames 0.181M, mean epr -18.77
+time 00h 35m 00s, episodes 144, frames 0.210M, mean epr -19.14
+time 00h 40m 00s, episodes 165, frames 0.241M, mean epr -19.20
+time 00h 45m 00s, episodes 187, frames 0.270M, mean epr -19.73
+time 00h 50m 00s, episodes 209, frames 0.301M, mean epr -19.59
+time 00h 55m 00s, episodes 229, frames 0.331M, mean epr -17.77
+time 01h 00m 00s, episodes 249, frames 0.359M, mean epr -19.48
+time 01h 05m 00s, episodes 269, frames 0.388M, mean epr -18.50
+time 01h 10m 00s, episodes 288, frames 0.416M, mean epr -19.16
+time 01h 15m 00s, episodes 306, frames 0.443M, mean epr -19.60
+time 01h 20m 00s, episodes 327, frames 0.472M, mean epr -19.43
+time 01h 25m 00s, episodes 347, frames 0.502M, mean epr -19.69
+time 01h 30m 00s, episodes 367, frames 0.531M, mean epr -19.60
+time 01h 35m 00s, episodes 387, frames 0.559M, mean epr -19.37
+time 01h 40m 00s, episodes 407, frames 0.589M, mean epr -18.97
+time 01h 45m 00s, episodes 427, frames 0.619M, mean epr -18.75
+time 01h 50m 00s, episodes 447, frames 0.648M, mean epr -19.45
+time 01h 55m 00s, episodes 466, frames 0.677M, mean epr -19.15
+time 02h 00m 00s, episodes 488, frames 0.708M, mean epr -19.77
+time 02h 05m 00s, episodes 507, frames 0.738M, mean epr -18.80
+time 02h 10m 00s, episodes 526, frames 0.767M, mean epr -18.83
+time 02h 15m 00s, episodes 547, frames 0.798M, mean epr -19.14
+time 02h 20m 00s, episodes 568, frames 0.827M, mean epr -19.48
+time 02h 25m 00s, episodes 585, frames 0.854M, mean epr -18.03
+time 02h 30m 00s, episodes 605, frames 0.883M, mean epr -19.57
+time 02h 35m 00s, episodes 624, frames 0.912M, mean epr -18.98
+time 02h 40m 00s, episodes 644, frames 0.942M, mean epr -18.51
+time 02h 45m 00s, episodes 663, frames 0.972M, mean epr -18.81
+
+	1M frames: saved model
+
+time 02h 50m 00s, episodes 682, frames 1.001M, mean epr -18.96
+time 02h 55m 00s, episodes 702, frames 1.029M, mean epr -18.93
+time 03h 00m 00s, episodes 722, frames 1.059M, mean epr -19.19
+time 03h 05m 00s, episodes 739, frames 1.084M, mean epr -19.61
+time 03h 10m 00s, episodes 758, frames 1.113M, mean epr -18.42
+time 03h 15m 00s, episodes 777, frames 1.142M, mean epr -19.46
+time 03h 20m 00s, episodes 796, frames 1.171M, mean epr -18.68
+time 03h 25m 00s, episodes 815, frames 1.199M, mean epr -18.95
+time 03h 30m 00s, episodes 835, frames 1.228M, mean epr -18.48
+time 03h 35m 00s, episodes 854, frames 1.259M, mean epr -17.92
+time 03h 40m 00s, episodes 874, frames 1.289M, mean epr -19.07
+time 03h 45m 00s, episodes 893, frames 1.319M, mean epr -18.14
+time 03h 50m 00s, episodes 913, frames 1.349M, mean epr -18.92
+time 03h 55m 00s, episodes 933, frames 1.380M, mean epr -18.95
+time 04h 00m 00s, episodes 953, frames 1.410M, mean epr -18.76
+time 04h 05m 00s, episodes 972, frames 1.440M, mean epr -18.49
+time 04h 10m 00s, episodes 990, frames 1.467M, mean epr -19.41
+time 04h 15m 00s, episodes 1009, frames 1.495M, mean epr -18.82
+time 04h 20m 00s, episodes 1027, frames 1.524M, mean epr -19.04
+time 04h 25m 00s, episodes 1046, frames 1.553M, mean epr -18.65
+time 04h 30m 00s, episodes 1064, frames 1.583M, mean epr -18.01
+time 04h 35m 00s, episodes 1082, frames 1.612M, mean epr -18.19
+time 04h 40m 00s, episodes 1099, frames 1.641M, mean epr -18.09
+time 04h 45m 00s, episodes 1118, frames 1.672M, mean epr -18.78
+time 04h 50m 00s, episodes 1137, frames 1.702M, mean epr -19.15
+time 04h 55m 00s, episodes 1157, frames 1.732M, mean epr -18.94
+time 05h 00m 00s, episodes 1177, frames 1.762M, mean epr -20.04
+time 05h 05m 00s, episodes 1196, frames 1.792M, mean epr -18.59
+time 05h 10m 00s, episodes 1214, frames 1.822M, mean epr -18.60
+time 05h 15m 00s, episodes 1233, frames 1.853M, mean epr -18.72
+time 05h 20m 00s, episodes 1252, frames 1.883M, mean epr -18.70
+time 05h 25m 00s, episodes 1271, frames 1.913M, mean epr -19.09
+time 05h 30m 00s, episodes 1289, frames 1.944M, mean epr -18.83
+time 05h 35m 00s, episodes 1307, frames 1.974M, mean epr -18.19
+
+	2M frames: saved model
+
+time 05h 40m 00s, episodes 1327, frames 2.004M, mean epr -19.06
+time 05h 45m 00s, episodes 1345, frames 2.035M, mean epr -17.79
+time 05h 50m 00s, episodes 1365, frames 2.065M, mean epr -19.22
+time 05h 55m 00s, episodes 1383, frames 2.095M, mean epr -17.19
+time 06h 00m 00s, episodes 1402, frames 2.126M, mean epr -18.57
+time 06h 05m 00s, episodes 1421, frames 2.156M, mean epr -18.78
+time 06h 10m 00s, episodes 1440, frames 2.186M, mean epr -18.91
+time 06h 15m 00s, episodes 1457, frames 2.216M, mean epr -18.34
+time 06h 20m 00s, episodes 1475, frames 2.246M, mean epr -18.32
+time 06h 25m 00s, episodes 1493, frames 2.276M, mean epr -18.64
+time 06h 30m 00s, episodes 1511, frames 2.306M, mean epr -17.17
+time 06h 35m 00s, episodes 1527, frames 2.335M, mean epr -18.29
+time 06h 40m 00s, episodes 1545, frames 2.364M, mean epr -18.41
+time 06h 45m 00s, episodes 1562, frames 2.393M, mean epr -17.49
+time 06h 50m 00s, episodes 1578, frames 2.422M, mean epr -18.19
+time 06h 55m 00s, episodes 1595, frames 2.451M, mean epr -17.86
+time 07h 00m 00s, episodes 1611, frames 2.479M, mean epr -17.75
+time 07h 05m 00s, episodes 1628, frames 2.509M, mean epr -18.42
+time 07h 10m 00s, episodes 1645, frames 2.538M, mean epr -17.75
+time 07h 15m 00s, episodes 1661, frames 2.567M, mean epr -18.43
+time 07h 20m 00s, episodes 1679, frames 2.596M, mean epr -18.25
+time 07h 25m 00s, episodes 1694, frames 2.624M, mean epr -18.28
+time 07h 30m 00s, episodes 1711, frames 2.653M, mean epr -18.23
+time 07h 35m 00s, episodes 1726, frames 2.682M, mean epr -17.40
+time 07h 40m 00s, episodes 1743, frames 2.711M, mean epr -17.38
+time 07h 45m 00s, episodes 1759, frames 2.740M, mean epr -17.57
+time 07h 50m 00s, episodes 1776, frames 2.770M, mean epr -17.84
+time 07h 55m 00s, episodes 1793, frames 2.799M, mean epr -16.87
+time 08h 00m 00s, episodes 1809, frames 2.828M, mean epr -17.42
+time 08h 05m 00s, episodes 1825, frames 2.857M, mean epr -18.07
+time 08h 10m 00s, episodes 1841, frames 2.886M, mean epr -18.11
+time 08h 15m 00s, episodes 1856, frames 2.915M, mean epr -17.17
+time 08h 20m 00s, episodes 1872, frames 2.944M, mean epr -17.38
+time 08h 25m 00s, episodes 1888, frames 2.974M, mean epr -17.74
+
+	3M frames: saved model
+
+time 08h 30m 00s, episodes 1904, frames 3.003M, mean epr -17.16
